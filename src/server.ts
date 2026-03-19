@@ -5,6 +5,10 @@ const PORT = process.env.PORT || 5000;
 
 async function main() {
   try {
+    app.get("/", (req, res) => {
+      res.send("HealthCare Management system");
+    });
+
     await prisma.$connect();
     console.log("Connected to the database successfully.");
 
