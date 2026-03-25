@@ -1,13 +1,13 @@
 import express, { Application } from "express";
 import cors from "cors";
-import { specialityRoutes } from "./module/speciality/speciality.routes";
 import { indexRoutes } from "./routes";
+import { envVariables } from "./config/env";
 
 const app: Application = express();
 
 app.use(
   cors({
-    origin: process.env.APP_URL || "http://localhose:3000",
+    origin: envVariables.APP_URL || "http://localhose:3000",
     credentials: true,
   }),
 );
