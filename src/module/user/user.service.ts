@@ -1,3 +1,5 @@
+import status from "http-status";
+import AppError from "../../errorHelpers/AppError";
 import { Role, Specialty } from "../../generated/prisma/client";
 import { auth } from "../../lib/auth";
 import { prisma } from "../../lib/prisma";
@@ -12,7 +14,8 @@ const createDoctor = async (payload: ICreateDoctorPayload) => {
   });
 
   if (specialities.length !== payload.specialties.length) {
-    throw new Error("One or more specialties not found");
+    // throw new Error("One or more specialties not found");
+    throw new AppError(status.NOT_FOUND, "One or more specialties not found");
   }
 
   const existUser = await prisma.user.findUnique({
