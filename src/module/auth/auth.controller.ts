@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
 import { catchAsync } from "../../utils/catchAsync";
-import { userService } from "./auth.service";
 import { sendResponse } from "../../utils/sendResponse";
 import status from "http-status";
+import { authService } from "./auth.service";
 
 // Create User
 const createUser = catchAsync(async (req: Request, res: Response) => {
   const payload = req.body;
-  const result = await userService.createUser(payload);
+  const result = await authService.createUser(payload);
   sendResponse(res, {
     httpStatusCode: status.CREATED,
     success: true,
@@ -19,7 +19,7 @@ const createUser = catchAsync(async (req: Request, res: Response) => {
 // Login User
 const loginUser = catchAsync(async (req: Request, res: Response) => {
   const payload = req.body;
-  const result = await userService.loginUser(payload);
+  const result = await authService.loginUser(payload);
   sendResponse(res, {
     httpStatusCode: status.OK,
     success: true,
@@ -28,7 +28,7 @@ const loginUser = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-export const userController = {
+export const authController = {
   createUser,
   loginUser,
 };

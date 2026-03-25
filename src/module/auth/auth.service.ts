@@ -27,12 +27,9 @@ const createUser = async (payload: IUserData) => {
     try {
       return await tx.patient.create({
         data: {
-          id: result.user.id,
+          userId: result.user.id,
           name: payload.name,
           email: payload.email,
-          user: {
-            connect: { id: result.user.id },
-          },
         },
       });
     } catch (error) {
@@ -70,7 +67,7 @@ const loginUser = async (payload: IloginUser) => {
   return result;
 };
 
-export const userService = {
+export const authService = {
   createUser,
   loginUser,
 };
