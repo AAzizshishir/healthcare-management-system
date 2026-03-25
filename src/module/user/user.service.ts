@@ -58,23 +58,7 @@ const createDoctor = async (payload: ICreateDoctorPayload) => {
 
         const doctor = await prisma.doctor.findUnique({
           where: { id: doctorData.id },
-          select: {
-            id: true,
-            userId: true,
-            name: true,
-            email: true,
-            profilePhoto: true,
-            contactNumber: true,
-            address: true,
-            registrationNumber: true,
-            experience: true,
-            gender: true,
-            appointmentFee: true,
-            qualification: true,
-            currentWorkingPlace: true,
-            designation: true,
-            createdAt: true,
-            updatedAt: true,
+          include: {
             user: {
               select: {
                 id: true,
