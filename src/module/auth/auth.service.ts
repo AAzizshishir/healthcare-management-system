@@ -24,16 +24,26 @@ const createUser = async (payload: IUserData) => {
   }
 
   const patient = await prisma.$transaction(async (tx) => {
-    return await tx.patient.create({
-      data: {
-        id: result.user.id,
-        name: payload.name,
-        email: payload.email,
-        user: {
-          connect: { id: result.user.id },
+    try {
+      return await tx.patient.create({
+        data: {
+          id: result.user.id,
+          name: payload.name,
+          email: payload.email,
+          user: {
+            connect: { id: result.user.id },
+          },
         },
-      },
-    });
+      });
+    } catch (error) {
+      console.log("error from transaction", error);
+      prisma.user.delete({
+        where: {
+          id: result.user.id,
+        },
+      });
+      throw error;
+    }
   });
 
   return {
