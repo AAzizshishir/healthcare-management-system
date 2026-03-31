@@ -23,5 +23,6 @@ app.use("/api/v1", indexRoutes);
 
 app.use(globalErrorHandler);
 app.use(notFound);
+app.use(express.urlencoded({ extended: true }));
 
 export default app;

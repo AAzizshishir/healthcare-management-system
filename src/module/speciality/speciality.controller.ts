@@ -5,7 +5,10 @@ import { sendResponse } from "../../utils/sendResponse";
 
 // Create Speciality
 const addSpeciality = catchAsync(async (req: Request, res: Response) => {
-  const payload = req.body;
+  const payload = {
+    ...req.body,
+    icon: req.file?.path,
+  };
   const result = await specialityService.createSpeciality(payload);
   sendResponse(res, {
     httpStatusCode: 201,
